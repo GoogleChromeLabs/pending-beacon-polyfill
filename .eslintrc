@@ -1,0 +1,38 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true,
+    "mocha": true
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": "latest"
+  },
+  "extends": ["eslint:recommended"],
+  "overrides": [
+    {
+      "files": "wdio.conf.js",
+      "extends": ["eslint:recommended"],
+      "rules": {
+        "max-len": "off"
+      }
+    },
+    {
+      "files": ["test/**/*.js"],
+      "globals": {
+        "$": false,
+        "browser": false,
+        "expect": false
+      },
+      "extends": ["eslint:recommended"],
+      "rules": {
+        "no-invalid-this": "off",
+        "max-len": [2, {
+          "ignorePattern": "^\\s*import|= require\\(|^\\s*it\\(|^\\s*describe\\(",
+          "ignoreUrls": true
+        }],
+      }
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+<!--
+ Copyright 2022 Google LLC
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     https://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+{% extends 'layout.njk' %}
+
+{% block head %}
+
+<link rel="stylesheet" href="/node_modules/mocha/mocha.css" />
+<script src="/node_modules/mocha/mocha.js"></script>
+<script src="/node_modules/chai/chai.js"></script>
+<script>self.expect = self.chai.expect;</script>
+
+{% endblock %}
+
+{% block content %}
+
+  <div id="mocha"></div>
+
+  <script type="module" class="mocha-init">
+    mocha.setup('bdd');
+    mocha.checkLeaks();
+  </script>
+
+  <script type="module" src="/test/unit/PendingPostBeacon-test.js"></script>
+
+  <script type="module">
+    const runner = mocha.run();
+    const reports = [];
+
+    runner.on('fail', (test, err) => {
+      console.error(err.stack);
+
+      const flattenTitles = (test) => {
+        const titles = [test.title];
+        while (test.parent.title){
+          titles.push(test.parent.title);
+          test = test.parent;
+        }
+        return titles.reverse().join(' ');
+      };
+
+      reports.push({
+        name: flattenTitles(test),
+        result: false,
+        message: err.message,
+        stack: err.stack,
+      });
+    });
+
+    runner.on('end', () => {
+      self.mochaResults = runner.stats;
+      self.mochaResults.reports = reports;
+    });
+  </script>
+
+{% endblock %}
