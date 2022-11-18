@@ -61,8 +61,10 @@
     "url": "https://github.com/GoogleChromeLabs/pending-beacon-polyfill/issues"
   },
   "prettier": {
+    "arrowParens": "always",
     "bracketSpacing": false,
-    "singleQuote": true
+    "singleQuote": true,
+    "trailingComma": "es5"
   },
   "devDependencies": {
     "@babel/core": "^7.19.6",
