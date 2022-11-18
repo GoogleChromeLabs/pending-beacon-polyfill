@@ -61,8 +61,8 @@
     "url": "https://github.com/GoogleChromeLabs/pending-beacon-polyfill/issues"
   },
   "prettier": {
-    "singleQuote": true,
-    "bracketSpacing": false
+    "bracketSpacing": false,
+    "singleQuote": true
   },
   "devDependencies": {
     "@babel/core": "^7.19.6",
@@ -96,6 +96,6 @@
   },
   "lint-staged": {
     "**/*.js": "eslint --fix --ignore-path .gitignore",
-    "**/*.{cjs,html,js}": "prettier --write --ignore-path .gitignore"
+    "**/*.{cjs,html,js,ts}": "prettier --write --ignore-path .gitignore"
   }
 }

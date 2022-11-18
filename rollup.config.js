@@ -41,8 +41,8 @@ function configurePlugins(opts = {}) {
             },
           ],
         ],
-      }),
-    )
+      })
+    );
   }
   if (opts.minify) {
     plugins.push(
